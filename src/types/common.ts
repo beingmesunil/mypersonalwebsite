@@ -16,6 +16,11 @@ export interface ImageAsset {
   readonly height: number;
   /** Tiny solid colour used as a placeholder while the image loads. */
   readonly placeholderColor?: string;
+  /**
+   * Basename of a file in `src/assets/photos`. When that file exists it wins
+   * over `src`, and its real dimensions replace the ones declared here.
+   */
+  readonly localKey?: string;
 }
 
 export interface NavLink {

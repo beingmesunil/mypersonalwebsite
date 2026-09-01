@@ -17,7 +17,7 @@ A production-ready, cinematic photography portfolio built with **React 19**, **T
 | **Animation**  | Framer Motion (reduced-motion aware)                           |
 | **Forms**      | React Hook Form + Zod                                          |
 | **Icons**      | Lucide React                                                   |
-| **Testing**    | Vitest + Testing Library (46 tests)                            |
+| **Testing**    | Vitest + Testing Library (63 tests)                            |
 | **Quality**    | ESLint 9 (flat config, jsx-a11y), Prettier, Husky, lint-staged |
 
 ### Design system
@@ -63,7 +63,8 @@ All tokens live in [`src/styles/index.css`](src/styles/index.css). There are **n
 
 ```
 src/
-├── assets/               # Local static assets imported by components
+├── assets/
+│   └── photos/           # ← Drop your photographs here; picked up automatically
 ├── components/
 │   ├── ui/               # Primitives: Button, LazyImage, Section, fields, Reveal…
 │   ├── layout/           # Header, Footer, RootLayout, Seo, BackToTop, errors
@@ -119,6 +120,7 @@ npm run typecheck      # tsc --noEmit across app + node configs
 npm run test           # Vitest, single run
 npm run test:watch     # Vitest, watch mode
 npm run test:coverage  # Coverage report
+npm run photos:list    # Which photographs are supplied vs still placeholders
 ```
 
 > **Note on `ajv`.** It is listed as a dev dependency even though nothing imports it. `@hookform/resolvers` declares `ajv` as an _optional_ peer dependency, and without an explicit entry `npm install` and `npm ci` resolve the dependency tree differently, which breaks `npm ci` in CI. Pinning it keeps the lockfile deterministic.
@@ -138,7 +140,28 @@ No component needs to be touched to re-skin the site:
 | `src/data/aboutData.ts`        | Biography, mission, highlights, portrait                           |
 | `src/data/statsData.ts`        | The four animated counters                                         |
 
-**Images.** Sample photography uses deterministic [Lorem Picsum](https://picsum.photos) URLs so the project renders real photographs immediately. `src/utils/image.ts` also understands Unsplash URLs and passes any other source (including files you import from `src/assets/`) through untouched — swap the `src` values in `src/data/` and the responsive `srcset` keeps working. Before launch, replace `public/og-image.svg` with a 1200×630 JPG/PNG export for maximum crawler support and update `SITE.ogImage`.
+### Adding your photographs
+
+Drop image files into **`src/assets/photos/`** and they replace the placeholder imagery automatically — no code change needed. A Vite plugin picks up each file, reads its real pixel dimensions from the file header, and hands them to the layout so the gallery reserves exactly the right space.
+
+The filename must match the `localKey` declared in `src/data/`:
+
+```
+src/assets/photos/hero.jpg              →  home page hero
+src/assets/photos/about-portrait.jpg    →  About section portrait
+src/assets/photos/glacier-veil.jpg      →  the "Glacier Veil" gallery item
+src/assets/photos/elena-marsh-avatar.jpg → that client's testimonial photo
+```
+
+```bash
+npm run photos:list   # every key the site wants, and which files you've supplied
+```
+
+Export at a long edge of ~2000px, JPEG quality 80 (or WebP), ideally under 400 KB each. Anything not yet supplied keeps its [Lorem Picsum](https://picsum.photos) placeholder, so the site is never broken mid-swap. Full details — including which alt text and captions you still need to rewrite by hand — are in [`src/assets/photos/README.md`](src/assets/photos/README.md).
+
+Remote URLs still work too: `src/utils/image.ts` understands Unsplash and Picsum sources and builds responsive `srcset`s for them. Local files are served as exported, which is why the sizing advice above matters.
+
+Before launch, replace `public/og-image.svg` with a 1200×630 JPG/PNG export for maximum crawler support and update `SITE.ogImage`.
 
 ---
 
@@ -155,7 +178,30 @@ The build emits hashed, long-cacheable assets plus a generated `sitemap.xml` and
 
 ## Deployment Instructions
 
-The output is a static SPA in `dist/`. Every host needs a catch-all rewrite to `index.html` so deep links work.
+The site is configured for **GitHub Pages at `https://beingmesunil.github.io/mypersonalwebsite`**.
+
+`SITE.url` in `src/constants/site.ts` is the single source of truth: Vite's `base`, the router `basename`, canonical URLs, Open Graph tags, the sitemap and the web manifest are all derived from it. Moving to a custom domain means editing that one line (and adding a `CNAME` file in `public/` if you stay on Pages).
+
+### One-time repository setting
+
+The included workflow deploys the **built** site, which requires Pages to be sourced from Actions rather than from a branch:
+
+> **Settings → Pages → Build and deployment → Source: GitHub Actions**
+
+Until that is switched, Pages serves the raw repository (the unbuilt `index.html`), which will not work. After switching, every push to `main` builds and publishes via `.github/workflows/deploy.yml`.
+
+### What the build emits for Pages
+
+| File                        | Why                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------- |
+| `404.html`                  | A copy of the shell, so deep links like `/portfolio` work — Pages has no rewrite rules |
+| `.nojekyll`                 | Stops Jekyll from stripping files Vite emits                                           |
+| `site.webmanifest`          | Generated with the correct `start_url` and `scope` for the base path                   |
+| `sitemap.xml`, `robots.txt` | Generated from the route table and journal data                                        |
+
+> **Note.** On a _project_ Pages site, crawlers read `beingmesunil.github.io/robots.txt` — the repository root, not this project's sub-path. The emitted `robots.txt` is therefore advisory only; submit `sitemap.xml` directly in Search Console, or move to a custom domain (or a user site) if robots directives matter to you.
+
+### Other hosts
 
 **Vercel** — `vercel.json` is included (rewrites, immutable asset caching, security headers). Import the repo; Vercel detects Vite automatically.
 
@@ -166,9 +212,7 @@ Build command: npm run build
 Publish directory: dist
 ```
 
-**Cloudflare Pages** — build `npm run build`, output `dist`, and enable Single Page App handling.
-
-**GitHub Pages** — add `base: '/<repo-name>/'` to `vite.config.ts`, then publish `dist` (e.g. with `actions/deploy-pages`). A `404.html` copy of `index.html` restores deep linking.
+**Cloudflare Pages** — build `npm run build`, output `dist`, enable Single Page App handling.
 
 **Any static host / nginx**
 
@@ -178,12 +222,15 @@ location / {
 }
 ```
 
+On any of these the site is served from the domain root, so set `SITE.url` to that origin — the base path disappears automatically.
+
 **Pre-launch checklist**
 
-1. Set `SITE.url`, `SITE.email`, `SITE.phone` and the address in `src/constants/site.ts`.
-2. Replace sample photography, `public/og-image.svg` and `public/favicon.svg`.
-3. Point `VITE_CONTACT_ENDPOINT` at a real form backend.
-4. Run `npm run build && npm run preview`, then a Lighthouse pass (the app targets 90+ on all four categories).
+1. Set `SITE.email`, `SITE.phone` and the address in `src/constants/site.ts` (the URL is already set).
+2. Add your photographs to `src/assets/photos/` and rewrite the alt text and captions in `src/data/`.
+3. Replace `public/og-image.svg` and `public/favicon.svg`.
+4. Point `VITE_CONTACT_ENDPOINT` at a real form backend.
+5. Run `npm run build && npm run preview`, then a Lighthouse pass (the app targets 90+ on all four categories).
 
 ---
 

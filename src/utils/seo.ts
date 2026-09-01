@@ -1,9 +1,11 @@
 import { SITE, SITE_ADDRESS_LINE } from '@/constants/site';
 import type { BlogPost, PhotographyService } from '@/types';
 
-/** Builds an absolute URL from a site-relative path. */
+import { joinUrl } from './url';
+
+/** Builds an absolute URL from a site-relative path, preserving any base path. */
 export function absoluteUrl(path: string): string {
-  return new URL(path, SITE.url).toString();
+  return joinUrl(SITE.url, path);
 }
 
 type JsonLd = Record<string, unknown>;

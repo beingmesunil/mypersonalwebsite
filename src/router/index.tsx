@@ -3,6 +3,7 @@ import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 import { RootLayout } from '@/components/layout/RootLayout';
 import { RouteError } from '@/components/layout/RouteError';
 import { ROUTES } from '@/constants/routes';
+import { stripTrailingSlash } from '@/utils/url';
 
 /**
  * Every page is code-split: the browser downloads a route's chunk only when the
@@ -50,4 +51,7 @@ const routes: RouteObject[] = [
   },
 ];
 
-export const router = createBrowserRouter(routes);
+/** Matches Vite's `base`, so the app works from a sub-path such as /mypersonalwebsite/. */
+const basename = stripTrailingSlash(import.meta.env.BASE_URL);
+
+export const router = createBrowserRouter(routes, { basename });

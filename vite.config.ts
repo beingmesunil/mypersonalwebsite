@@ -4,10 +4,20 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
+import { SITE } from './src/constants/site';
+import { ensureTrailingSlash } from './src/utils/url';
+import { localPhotosPlugin } from './scripts/local-photos-plugin';
 import { sitemapPlugin } from './scripts/sitemap-plugin';
 
+/**
+ * Derived from `SITE.url` so a single edit moves the site between a GitHub
+ * Pages project sub-path and a custom domain at the root.
+ */
+const base = ensureTrailingSlash(new URL(SITE.url).pathname);
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), sitemapPlugin()],
+  base,
+  plugins: [react(), tailwindcss(), localPhotosPlugin(), sitemapPlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
