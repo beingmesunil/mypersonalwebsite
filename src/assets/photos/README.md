@@ -30,6 +30,11 @@ Supported formats: `.jpg`, `.jpeg`, `.png`, `.webp`.
 Run `npm run photos:list` to print every key the site is currently looking for
 and whether a file has been supplied yet.
 
+Photographs straight from a phone are handled correctly: EXIF orientation is
+applied, so a shot the camera stored sideways still gets the right layout box.
+The build also warns about files that match no key (they are ignored) and files
+large enough to be worth re-exporting.
+
 ## Preparing files for the web
 
 These images are served as-is, so export them at sensible sizes:
