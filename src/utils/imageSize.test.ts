@@ -40,6 +40,42 @@ function webpLosslessHeader(width: number, height: number): Uint8Array {
   return bytes;
 }
 
+/**
+ * JPEG with an APP1/EXIF segment declaring `orientation`, followed by a frame
+ * of `width` x `height` — the shape every phone photograph has.
+ */
+function jpegWithExif(width: number, height: number, orientation: number): Uint8Array {
+  const bytes = new Uint8Array(64);
+  const view = new DataView(bytes.buffer);
+  const encoder = new TextEncoder();
+
+  bytes.set([0xff, 0xd8], 0); // SOI
+  bytes.set([0xff, 0xe1], 2); // APP1
+  view.setUint16(4, 30); // segment length
+  bytes.set(encoder.encode('Exif\0\0'), 6);
+
+  const tiff = 12;
+  bytes.set(encoder.encode('II'), tiff); // little-endian TIFF
+  view.setUint16(tiff + 2, 0x2a, true);
+  view.setUint32(tiff + 4, 8, true); // offset of IFD0, relative to the TIFF header
+
+  const ifd = tiff + 8;
+  view.setUint16(ifd, 1, true); // one entry
+  view.setUint16(ifd + 2, 0x0112, true); // Orientation tag
+  view.setUint16(ifd + 4, 3, true); // type SHORT
+  view.setUint32(ifd + 6, 1, true); // count
+  view.setUint16(ifd + 10, orientation, true);
+
+  const sof = 34;
+  bytes.set([0xff, 0xc0], sof);
+  view.setUint16(sof + 2, 11);
+  bytes[sof + 4] = 8; // precision
+  view.setUint16(sof + 5, height);
+  view.setUint16(sof + 7, width);
+
+  return bytes;
+}
+
 describe('readImageSize', () => {
   it('reads PNG dimensions from IHDR', () => {
     expect(readImageSize(pngHeader(1400, 1050))).toEqual({ width: 1400, height: 1050 });
@@ -55,6 +91,20 @@ describe('readImageSize', () => {
 
   it('returns null for an unrecognised format', () => {
     expect(readImageSize(new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8]))).toBeNull();
+  });
+
+  it('leaves dimensions alone for an upright EXIF orientation', () => {
+    expect(readImageSize(jpegWithExif(4032, 3024, 1))).toEqual({ width: 4032, height: 3024 });
+  });
+
+  it('swaps dimensions for a quarter-turn EXIF orientation', () => {
+    // Browsers rotate these when displaying, so the layout box must match
+    for (const orientation of [5, 6, 7, 8]) {
+      expect(readImageSize(jpegWithExif(4032, 3024, orientation))).toEqual({
+        width: 3024,
+        height: 4032,
+      });
+    }
   });
 
   it('returns null for a truncated file', () => {
