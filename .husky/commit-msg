@@ -1,0 +1,10 @@
+# Enforce Conventional Commits: type(optional scope)!: subject
+commit_regex='^(feat|fix|refactor|style|test|docs|chore|perf|build|ci|revert)(\([a-z0-9._/-]+\))?!?: .{1,72}$'
+
+if ! head -1 "$1" | grep -Eq "$commit_regex"; then
+  echo "✖ Commit message does not follow Conventional Commits."
+  echo "  Expected: <type>(<scope>): <subject>"
+  echo "  Types:    feat, fix, refactor, style, test, docs, chore, perf, build, ci, revert"
+  echo "  Example:  feat(portfolio): add lightbox keyboard navigation"
+  exit 1
+fi
