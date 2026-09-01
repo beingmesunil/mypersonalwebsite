@@ -1,8 +1,12 @@
-import type { Plugin } from 'vite';
+import { copyFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import type { Plugin, ResolvedConfig } from 'vite';
 
 import { SITEMAP_ROUTES } from '../src/constants/routes';
 import { SITE } from '../src/constants/site';
 import { blogPosts } from '../src/data/blogData';
+import { joinUrl } from '../src/utils/url';
 
 interface SitemapEntry {
   loc: string;
@@ -12,7 +16,7 @@ interface SitemapEntry {
 }
 
 function toAbsolute(path: string): string {
-  return new URL(path, SITE.url).toString();
+  return joinUrl(SITE.url, path);
 }
 
 function collectEntries(buildDate: string): SitemapEntry[] {
@@ -54,14 +58,47 @@ function renderRobots(): string {
   return ['User-agent: *', 'Allow: /', '', `Sitemap: ${toAbsolute('/sitemap.xml')}`, ''].join('\n');
 }
 
+function renderManifest(base: string): string {
+  return `${JSON.stringify(
+    {
+      name: `${SITE.name} — ${SITE.photographer} Photography`,
+      short_name: SITE.name,
+      description: SITE.shortDescription,
+      start_url: base,
+      scope: base,
+      display: 'standalone',
+      background_color: '#050505',
+      theme_color: '#050505',
+      icons: [
+        {
+          src: `${base}favicon.svg`,
+          sizes: 'any',
+          type: 'image/svg+xml',
+          purpose: 'any',
+        },
+      ],
+    },
+    null,
+    2,
+  )}\n`;
+}
+
 /**
- * Emits `sitemap.xml` and `robots.txt` at build time from the route table and
- * the journal data, so neither file can drift out of sync with the site.
+ * Emits the files that must stay in sync with `SITE.url` and Vite's `base`:
+ * `sitemap.xml`, `robots.txt`, the web manifest, and the `404.html` copy of the
+ * shell that lets GitHub Pages serve deep links into the SPA.
  */
 export function sitemapPlugin(): Plugin {
+  let config: ResolvedConfig;
+
   return {
-    name: 'lumen-sitemap',
+    name: 'lumen-site-files',
     apply: 'build',
+
+    configResolved(resolved) {
+      config = resolved;
+    },
+
     generateBundle() {
       const buildDate = new Date().toISOString().slice(0, 10);
       const entries = collectEntries(buildDate);
@@ -69,7 +106,19 @@ export function sitemapPlugin(): Plugin {
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: renderSitemap(entries) });
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: renderRobots() });
 
-      console.info(`[lumen-sitemap] generated sitemap.xml with ${entries.length} URLs`);
+      console.info(`[lumen-site-files] generated sitemap.xml with ${entries.length} URLs`);
+    },
+
+    // Runs after the HTML and the public directory have been written to disk
+    closeBundle() {
+      const outDir = join(config.root, config.build.outDir);
+
+      copyFileSync(join(outDir, 'index.html'), join(outDir, '404.html'));
+      writeFileSync(join(outDir, 'site.webmanifest'), renderManifest(config.base), 'utf8');
+
+      console.info(
+        `[lumen-site-files] wrote 404.html and site.webmanifest for base ${config.base}`,
+      );
     },
   };
 }

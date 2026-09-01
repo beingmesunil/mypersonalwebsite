@@ -10,8 +10,12 @@ export const SITE = {
     'I chase the last twenty minutes of daylight across five continents — turning fleeting light into images that still feel alive a decade from now.',
   shortDescription:
     'Award-winning landscape, portrait and wildlife photographer based in Reykjavík, available worldwide.',
-  /** Absolute origin used for canonical URLs, Open Graph tags and the sitemap. */
-  url: 'https://lumenstudio.example.com',
+  /**
+   * Absolute site URL, including any base path. This single value drives
+   * canonical URLs, Open Graph tags, the sitemap, the web manifest and Vite's
+   * `base` — moving to a custom domain means editing this line and nothing else.
+   */
+  url: 'https://beingmesunil.github.io/mypersonalwebsite',
   locale: 'en_US',
   language: 'en',
   foundedYear: 2013,
