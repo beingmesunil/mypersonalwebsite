@@ -15,6 +15,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Twelve minutes of alpenglow on the south face of the glacier, shot at f/11 while the meltwater river below carried the light away.',
     image: {
       src: 'https://picsum.photos/seed/glacier-veil/1600/2000',
+      localKey: 'glacier-veil',
       alt: 'Ice cliffs of a glacier glowing pink under low arctic light',
       width: 1600,
       height: 2000,
@@ -32,6 +33,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'A dock worker crosses the last pool of sodium light before the winter storm closed the harbour for three days.',
     image: {
       src: 'https://picsum.photos/seed/harbour-lantern/1600/1067',
+      localKey: 'harbour-lantern',
       alt: 'Lone figure walking through amber street light on a wet harbour road',
       width: 1600,
       height: 1067,
@@ -49,6 +51,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Single-source portrait lit with a 1.2m octabox feathered away from the subject to keep the shadow side alive.',
     image: {
       src: 'https://picsum.photos/seed/the-cartographer/1600/2000',
+      localKey: 'the-cartographer',
       alt: 'Studio portrait of a person turned three-quarters into soft directional light',
       width: 1600,
       height: 2000,
@@ -66,6 +69,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Four mornings in a snow hide for a single frame — 600mm, hand-warmed batteries, and a very patient fox.',
     image: {
       src: 'https://picsum.photos/seed/arctic-fox-dusk/1600/1067',
+      localKey: 'arctic-fox-dusk',
       alt: 'Arctic fox standing alert on a snow ridge at dusk',
       width: 1600,
       height: 1067,
@@ -83,6 +87,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Two centimetres of standing water turned 10,000 square kilometres of salt flat into a mirror at 5:40am.',
     image: {
       src: 'https://picsum.photos/seed/salt-road/1600/1067',
+      localKey: 'salt-road',
       alt: 'Reflection of dawn clouds across a flooded salt flat',
       width: 1600,
       height: 1067,
@@ -100,6 +105,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'A four-second exposure taken between two sets of waves, with the columns lit only by the overcast sky.',
     image: {
       src: 'https://picsum.photos/seed/basalt-cathedral/1600/2000',
+      localKey: 'basalt-cathedral',
       alt: 'Hexagonal basalt columns rising from a black sand beach',
       width: 1600,
       height: 2000,
@@ -117,6 +123,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Shot from the hip at 35mm in the spice souk, where the light falls through slatted reed roofs in stripes.',
     image: {
       src: 'https://picsum.photos/seed/market-hands/1600/1067',
+      localKey: 'market-hands',
       alt: 'Hands weighing spices on a brass scale in a covered market',
       width: 1600,
       height: 1067,
@@ -134,6 +141,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Environmental portrait of a fourth-generation lighthouse keeper, made in the last usable light of the day.',
     image: {
       src: 'https://picsum.photos/seed/the-keeper/1600/2000',
+      localKey: 'the-keeper',
       alt: 'Weathered lighthouse keeper photographed against a stormy coastline',
       width: 1600,
       height: 2000,
@@ -151,6 +159,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Nine days at sea, 14,000 frames, one breach where the whale, the boat and the light finally agreed.',
     image: {
       src: 'https://picsum.photos/seed/humpback-breach/1600/1067',
+      localKey: 'humpback-breach',
       alt: 'Humpback whale breaching against a grey northern sea',
       width: 1600,
       height: 1067,
@@ -168,6 +177,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Rice terraces photographed forty minutes before a monsoon squall, when the greens go almost luminous.',
     image: {
       src: 'https://picsum.photos/seed/monsoon-terraces/1600/1067',
+      localKey: 'monsoon-terraces',
       alt: 'Layered rice terraces under heavy monsoon cloud',
       width: 1600,
       height: 1067,
@@ -185,6 +195,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'A 4:10am start and 900 metres of ascent for ninety seconds of usable colour on the ridge line.',
     image: {
       src: 'https://picsum.photos/seed/first-light-ridge/1600/1067',
+      localKey: 'first-light-ridge',
       alt: 'Jagged mountain ridge catching the first orange light of sunrise',
       width: 1600,
       height: 1067,
@@ -202,6 +213,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Continuous light at 1/250s to keep the fabric sharp while the studio floor stayed in shadow.',
     image: {
       src: 'https://picsum.photos/seed/the-dancer/1600/2000',
+      localKey: 'the-dancer',
       alt: 'Dancer mid-movement with fabric caught in motion against a dark backdrop',
       width: 1600,
       height: 2000,
@@ -219,6 +231,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Shot from a stairwell above the crossing, waiting for the umbrellas to form a single moving current.',
     image: {
       src: 'https://picsum.photos/seed/night-crossing/1600/1067',
+      localKey: 'night-crossing',
       alt: 'Crowd with umbrellas crossing a neon-lit street at night',
       width: 1600,
       height: 1067,
@@ -236,6 +249,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'Available-light frame at ISO 6400 from a forest hide, twenty minutes after official sunset.',
     image: {
       src: 'https://picsum.photos/seed/eagle-owl/1600/2000',
+      localKey: 'eagle-owl',
       alt: 'Eagle owl perched on a snow-covered branch looking into the lens',
       width: 1600,
       height: 2000,
@@ -253,6 +267,7 @@ export const portfolioItems: readonly PortfolioItem[] = [
       'The Tizi n’Tichka pass from a switchback above, compressed with a 200mm to stack the ridgelines.',
     image: {
       src: 'https://picsum.photos/seed/atlas-road/1600/1067',
+      localKey: 'atlas-road',
       alt: 'Mountain road winding through dry ochre ridges',
       width: 1600,
       height: 1067,

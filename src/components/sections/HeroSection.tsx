@@ -14,6 +14,7 @@ import { LinkButton } from '../ui/LinkButton';
 
 const heroImage: ImageAsset = {
   src: 'https://picsum.photos/seed/lumen-hero/1920/1280',
+  localKey: 'hero',
   alt: '',
   width: 1920,
   height: 1280,

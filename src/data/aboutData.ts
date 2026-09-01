@@ -12,6 +12,7 @@ export const aboutMission =
 
 export const aboutPortrait: ImageAsset = {
   src: 'https://picsum.photos/seed/aria-lindqvist-portrait/1200/1500',
+  localKey: 'about-portrait',
   alt: 'Aria Lindqvist holding a camera on a windswept coastline',
   width: 1200,
   height: 1500,

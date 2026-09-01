@@ -4,6 +4,7 @@ import { SIZES_GALLERY } from '@/constants/ui';
 import type { ImageAsset } from '@/types';
 import { cn } from '@/utils/cn';
 import { buildImageUrl, buildSrcSet, toAspectRatio } from '@/utils/image';
+import { resolvePhoto } from '@/utils/localPhotos';
 
 interface LazyImageProps {
   readonly image: ImageAsset;
@@ -23,7 +24,7 @@ interface LazyImageProps {
  * layout never shifts, plus a tinted placeholder while the file downloads.
  */
 export function LazyImage({
-  image,
+  image: declaredImage,
   className,
   imgClassName,
   sizes = SIZES_GALLERY,
@@ -32,6 +33,8 @@ export function LazyImage({
   fill = false,
 }: LazyImageProps) {
   const [loaded, setLoaded] = useState(false);
+  // A file in src/assets/photos takes precedence over the placeholder URL
+  const image = resolvePhoto(declaredImage);
   const srcSet = buildSrcSet(image.src);
 
   return (

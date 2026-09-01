@@ -12,6 +12,7 @@ export const blogPosts: readonly BlogPost[] = [
     tags: ['Landscape', 'Planning', 'Iceland'],
     cover: {
       src: 'https://picsum.photos/seed/chasing-blue-hour/1600/1067',
+      localKey: 'chasing-blue-hour-cover',
       alt: 'Snow-covered coastline photographed during deep blue twilight',
       width: 1600,
       height: 1067,
@@ -35,6 +36,7 @@ export const blogPosts: readonly BlogPost[] = [
     tags: ['Portrait', 'Lighting', 'Studio'],
     cover: {
       src: 'https://picsum.photos/seed/the-case-for-one-light/1600/1067',
+      localKey: 'portrait-single-light-cover',
       alt: 'Portrait subject lit by a single soft light source in a dark studio',
       width: 1600,
       height: 1067,
@@ -58,6 +60,7 @@ export const blogPosts: readonly BlogPost[] = [
     tags: ['Wildlife', 'Gear', 'Fieldcraft'],
     cover: {
       src: 'https://picsum.photos/seed/wildlife-field-kit/1600/1067',
+      localKey: 'wildlife-field-kit-cover',
       alt: 'Telephoto lens set up on a tripod inside a snow-covered hide',
       width: 1600,
       height: 1067,
@@ -81,6 +84,7 @@ export const blogPosts: readonly BlogPost[] = [
     tags: ['Post-production', 'Workflow'],
     cover: {
       src: 'https://picsum.photos/seed/editing-with-restraint/1600/1067',
+      localKey: 'editing-restraint-cover',
       alt: 'Colour-graded landscape image displayed on an editing monitor',
       width: 1600,
       height: 1067,
