@@ -121,6 +121,8 @@ npm run test:watch     # Vitest, watch mode
 npm run test:coverage  # Coverage report
 ```
 
+> **Note on `ajv`.** It is listed as a dev dependency even though nothing imports it. `@hookform/resolvers` declares `ajv` as an _optional_ peer dependency, and without an explicit entry `npm install` and `npm ci` resolve the dependency tree differently, which breaks `npm ci` in CI. Pinning it keeps the lockfile deterministic.
+
 ### Editing content
 
 No component needs to be touched to re-skin the site:
