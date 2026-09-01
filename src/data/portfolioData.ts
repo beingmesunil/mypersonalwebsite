@@ -1,0 +1,263 @@
+import type { PortfolioItem } from '@/types';
+
+/**
+ * Gallery content. Add, remove or reorder entries here — the masonry grid,
+ * the category filter and the lightbox all derive from this collection.
+ */
+export const portfolioItems: readonly PortfolioItem[] = [
+  {
+    id: 'glacier-veil',
+    title: 'Glacier Veil',
+    category: 'landscape',
+    location: 'Vatnajökull, Iceland',
+    year: 2025,
+    description:
+      'Twelve minutes of alpenglow on the south face of the glacier, shot at f/11 while the meltwater river below carried the light away.',
+    image: {
+      src: 'https://picsum.photos/seed/glacier-veil/1600/2000',
+      alt: 'Ice cliffs of a glacier glowing pink under low arctic light',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#1b2430',
+    },
+    featured: true,
+  },
+  {
+    id: 'harbour-lantern',
+    title: 'Harbour Lantern',
+    category: 'street',
+    location: 'Reykjavík, Iceland',
+    year: 2025,
+    description:
+      'A dock worker crosses the last pool of sodium light before the winter storm closed the harbour for three days.',
+    image: {
+      src: 'https://picsum.photos/seed/harbour-lantern/1600/1067',
+      alt: 'Lone figure walking through amber street light on a wet harbour road',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#241d18',
+    },
+    featured: true,
+  },
+  {
+    id: 'the-cartographer',
+    title: 'The Cartographer',
+    category: 'portrait',
+    location: 'Studio, Reykjavík',
+    year: 2024,
+    description:
+      'Single-source portrait lit with a 1.2m octabox feathered away from the subject to keep the shadow side alive.',
+    image: {
+      src: 'https://picsum.photos/seed/the-cartographer/1600/2000',
+      alt: 'Studio portrait of a person turned three-quarters into soft directional light',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#20191a',
+    },
+    featured: true,
+  },
+  {
+    id: 'arctic-fox-dusk',
+    title: 'Arctic Fox at Dusk',
+    category: 'wildlife',
+    location: 'Hornstrandir, Iceland',
+    year: 2025,
+    description:
+      'Four mornings in a snow hide for a single frame — 600mm, hand-warmed batteries, and a very patient fox.',
+    image: {
+      src: 'https://picsum.photos/seed/arctic-fox-dusk/1600/1067',
+      alt: 'Arctic fox standing alert on a snow ridge at dusk',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#1a1e26',
+    },
+    featured: true,
+  },
+  {
+    id: 'salt-road',
+    title: 'Salt Road',
+    category: 'travel',
+    location: 'Salar de Uyuni, Bolivia',
+    year: 2024,
+    description:
+      'Two centimetres of standing water turned 10,000 square kilometres of salt flat into a mirror at 5:40am.',
+    image: {
+      src: 'https://picsum.photos/seed/salt-road/1600/1067',
+      alt: 'Reflection of dawn clouds across a flooded salt flat',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#222a33',
+    },
+    featured: true,
+  },
+  {
+    id: 'basalt-cathedral',
+    title: 'Basalt Cathedral',
+    category: 'landscape',
+    location: 'Reynisfjara, Iceland',
+    year: 2024,
+    description:
+      'A four-second exposure taken between two sets of waves, with the columns lit only by the overcast sky.',
+    image: {
+      src: 'https://picsum.photos/seed/basalt-cathedral/1600/2000',
+      alt: 'Hexagonal basalt columns rising from a black sand beach',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#191b1d',
+    },
+    featured: true,
+  },
+  {
+    id: 'market-hands',
+    title: 'Market Hands',
+    category: 'street',
+    location: 'Marrakesh, Morocco',
+    year: 2023,
+    description:
+      'Shot from the hip at 35mm in the spice souk, where the light falls through slatted reed roofs in stripes.',
+    image: {
+      src: 'https://picsum.photos/seed/market-hands/1600/1067',
+      alt: 'Hands weighing spices on a brass scale in a covered market',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#2b2018',
+    },
+    featured: true,
+  },
+  {
+    id: 'the-keeper',
+    title: 'The Keeper',
+    category: 'portrait',
+    location: 'Lofoten, Norway',
+    year: 2023,
+    description:
+      'Environmental portrait of a fourth-generation lighthouse keeper, made in the last usable light of the day.',
+    image: {
+      src: 'https://picsum.photos/seed/the-keeper/1600/2000',
+      alt: 'Weathered lighthouse keeper photographed against a stormy coastline',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#1d222b',
+    },
+    featured: true,
+  },
+  {
+    id: 'humpback-breach',
+    title: 'Breach',
+    category: 'wildlife',
+    location: 'Skjálfandi Bay, Iceland',
+    year: 2025,
+    description:
+      'Nine days at sea, 14,000 frames, one breach where the whale, the boat and the light finally agreed.',
+    image: {
+      src: 'https://picsum.photos/seed/humpback-breach/1600/1067',
+      alt: 'Humpback whale breaching against a grey northern sea',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#1b2429',
+    },
+    featured: true,
+  },
+  {
+    id: 'monsoon-terraces',
+    title: 'Monsoon Terraces',
+    category: 'travel',
+    location: 'Bali, Indonesia',
+    year: 2023,
+    description:
+      'Rice terraces photographed forty minutes before a monsoon squall, when the greens go almost luminous.',
+    image: {
+      src: 'https://picsum.photos/seed/monsoon-terraces/1600/1067',
+      alt: 'Layered rice terraces under heavy monsoon cloud',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#1c2620',
+    },
+    featured: false,
+  },
+  {
+    id: 'first-light-ridge',
+    title: 'First Light Ridge',
+    category: 'landscape',
+    location: 'Dolomites, Italy',
+    year: 2022,
+    description:
+      'A 4:10am start and 900 metres of ascent for ninety seconds of usable colour on the ridge line.',
+    image: {
+      src: 'https://picsum.photos/seed/first-light-ridge/1600/1067',
+      alt: 'Jagged mountain ridge catching the first orange light of sunrise',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#241f26',
+    },
+    featured: false,
+  },
+  {
+    id: 'the-dancer',
+    title: 'The Dancer',
+    category: 'portrait',
+    location: 'Copenhagen, Denmark',
+    year: 2024,
+    description:
+      'Continuous light at 1/250s to keep the fabric sharp while the studio floor stayed in shadow.',
+    image: {
+      src: 'https://picsum.photos/seed/the-dancer/1600/2000',
+      alt: 'Dancer mid-movement with fabric caught in motion against a dark backdrop',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#221a1e',
+    },
+    featured: false,
+  },
+  {
+    id: 'night-crossing',
+    title: 'Night Crossing',
+    category: 'street',
+    location: 'Tokyo, Japan',
+    year: 2022,
+    description:
+      'Shot from a stairwell above the crossing, waiting for the umbrellas to form a single moving current.',
+    image: {
+      src: 'https://picsum.photos/seed/night-crossing/1600/1067',
+      alt: 'Crowd with umbrellas crossing a neon-lit street at night',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#181a24',
+    },
+    featured: false,
+  },
+  {
+    id: 'eagle-owl',
+    title: 'Eagle Owl',
+    category: 'wildlife',
+    location: 'Kuusamo, Finland',
+    year: 2022,
+    description:
+      'Available-light frame at ISO 6400 from a forest hide, twenty minutes after official sunset.',
+    image: {
+      src: 'https://picsum.photos/seed/eagle-owl/1600/2000',
+      alt: 'Eagle owl perched on a snow-covered branch looking into the lens',
+      width: 1600,
+      height: 2000,
+      placeholderColor: '#1e1c1a',
+    },
+    featured: false,
+  },
+  {
+    id: 'atlas-road',
+    title: 'Atlas Road',
+    category: 'travel',
+    location: 'High Atlas, Morocco',
+    year: 2023,
+    description:
+      'The Tizi n’Tichka pass from a switchback above, compressed with a 200mm to stack the ridgelines.',
+    image: {
+      src: 'https://picsum.photos/seed/atlas-road/1600/1067',
+      alt: 'Mountain road winding through dry ochre ridges',
+      width: 1600,
+      height: 1067,
+      placeholderColor: '#2a2119',
+    },
+    featured: false,
+  },
+];
